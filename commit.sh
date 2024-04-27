@@ -33,7 +33,8 @@ do
         # Git operations
         git add .
         git commit -m "$commit_message"
-        git push "https://github.com/maliabramovitch/LinuxFInalProject1.git" --all
+        git remote add origin https://github.com/maliabramovitch/LinuxFInalProject1.git
+        git push -u origin main
         if [ $? -eq 0 ]; then
             echo "Successfully pushed to GitHub."
         else
