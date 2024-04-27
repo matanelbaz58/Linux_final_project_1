@@ -29,6 +29,7 @@ do
         # Prepare commit message
         current_time=$(date "+%Y-%m-%d %H:%M:%S")
         commit_message="${bug_id}:${current_time}:${branch}:${dev_name}:${priority}:${description}${additional_description}"
+        echo commit_message
         
         # Git operations
         git add .
