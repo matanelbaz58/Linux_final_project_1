@@ -33,7 +33,7 @@ do
         # Git operations
         git add .
         git commit -m "$commit_message"
-        git push https://github.com/maliabramovitch/LinuxFInalProject1.git --all
+        git push "https://github.com/maliabramovitch/LinuxFInalProject1.git" --all
         if [ $? -eq 0 ]; then
             echo "Successfully pushed to GitHub."
         else
