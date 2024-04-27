@@ -14,6 +14,7 @@ fi
 
 # Get current branch name
 current_branch=$(git branch --show-current)
+echo "Current branch: $current_branch"
 
 
 # Check if additional description is provided
@@ -24,12 +25,15 @@ fi
 
 # Extract relevant data from CSV
 while IFS=, read -r bug_id description branch dev_name priority github_url
+echo "Bug ID: $bug_id Description: $description Branch: $branch Developer Name: $dev_name Priority: $priority GitHub URL: $github_url"
 do
     if [ "$branch" == "$current_branch" ]; then
         # Prepare commit message
         current_time=$(date "+%Y-%m-%d %H:%M:%S")
         commit_message="${bug_id}:${current_time}:${branch}:${dev_name}:${priority}:${description}${additional_description}"
-        echo commit_message
+        echo "Commit message: \n\n\n\n\n\n"
+        echo $github_url
+        echo "\n\n\n\n"
         
         # Git operations
         git add .
