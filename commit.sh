@@ -34,7 +34,7 @@ do
         # Git operations
         git add .
         git commit -m "$commit_message"
-        git push origin "$current_branch"
+        git push $github_url --all
         if [ $? -eq 0 ]; then
             echo "Successfully pushed to GitHub."
         else
