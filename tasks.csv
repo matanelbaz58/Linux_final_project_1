@@ -1,7 +1,7 @@
 BugId,Description,Brunch,Developer Name,Bug Priority,GitHubURL
-"234				",des 234,BR_1,m.elbaz,3,https://github.com/matanelbaz58/Linux_final_project_1.git
-"235				",des 235,BR_2,m.elbaz,3,https://github.com/matanelbaz58/Linux_final_project_1.git
-"236		",des 236,BR_1,m.elbaz,3,https://github.com/matanelbaz58/Linux_final_project_1.git
-"237				",des 237,BR_2,m.elbaz,3,https://github.com/matanelbaz58/Linux_final_project_1.git
-"238				",des 238,BR_1,m.elbaz,1,https://github.com/matanelbaz58/Linux_final_project_1.git
+234,des 234,BR_1,m.elbaz,3,https://github.com/matanelbaz58/Linux_final_project_1.git
+"235			",des 235,BR_2,m.elbaz,3,https://github.com/matanelbaz58/Linux_final_project_1.git
+"236	",des 236,BR_1,m.elbaz,3,https://github.com/matanelbaz58/Linux_final_project_1.git
+237,des 237,BR_2,m.elbaz,3,https://github.com/matanelbaz58/Linux_final_project_1.git
+"238			",des 238,BR_1,m.elbaz,1,https://github.com/matanelbaz58/Linux_final_project_1.git
 "239			",des 239,BR_2,m.elbaz,2,https://github.com/matanelbaz58/Linux_final_project_1.git
