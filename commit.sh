@@ -21,7 +21,7 @@ additional_description=""
 if [ ! -z "$1" ]; then
     additional_description=":$1"
 fi
-commit_message="${branch}"
+commit_message="branch = ${branch}"
 echo "Commit message: $commit_message"
 # Extract relevant data from CSV
 while IFS=, read -r bug_id description branch dev_name priority github_url
