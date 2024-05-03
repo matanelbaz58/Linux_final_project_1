@@ -1,49 +1,51 @@
 #!/bin/bash
 
-# Script name: commit.sh
-# Description: Automates git commit process by including details from a CSV file and current time.
-
-# Constants
-CSV_FILE="tasks.csv"
+# Define the path to the CSV file
+csv_path="./tasks.csv"
 
 # Check if CSV file exists
-if [ ! -f "$CSV_FILE" ]; then
-    echo "Error: CSV file does not exist in the current directory."
+if [ ! -f "$csv_path" ]; then
+    echo "Error: CSV file does not exist at $csv_path"
     exit 1
 fi
 
-# Get current branch name
-current_branch=$(git branch --show-current)
+# Get the current branch name
+current_branch=$(git rev-parse --abbrev-ref HEAD)
 
+# Find the row in the CSV file for the current branch and read the needed fields
+# Use the corrected header names and improve parsing with space and case handling
+IFS=, read -r bug_id description branch developer priority github_url < <(awk -v branch="$current_branch" 'BEGIN{FS=OFS=","} {gsub(/^ *| *$/, "", $3); if(tolower($3) == tolower(branch)) print $1, $2, $3, $4, $5, $6}' $csv_path)
 
-# Check if additional description is provided
-additional_description=""
-if [ ! -z "$1" ]; then
-    additional_description=":$1"
+# Add debugging statements to help trace values
+echo "Current branch is: $current_branch"
+echo "Parsed CSV values: BugId: $bug_id, Description: $description, Branch: $branch, Developer: $developer, Priority: $priority, GitHub URL: $github_url"
+
+# Exit if no entry is found for the current branch
+if [ -z "$bug_id" ]; then
+    echo "No tasks found for branch $current_branch in $csv_path"
+    exit 1
 fi
-commit_message="branch = ${branch}"
-echo "Commit message: $commit_message"
-# Extract relevant data from CSV
-while IFS=, read -r bug_id description branch dev_name priority github_url
-do
-    if [ "$branch" == "$current_branch" ]; then
-        # Prepare commit message
-        current_time=$(date "+%Y-%m-%d %H:%M:%S")
-        commit_message="${bug_id}:${current_time}:${branch}:${dev_name}:${priority}:${description}${additional_description}"
-        
-        # Git operations
-        git add .
-        git commit -m "$commit_message"
-        git push -u origin main
-        if [ $? -eq 0 ]; then
-            echo "Successfully pushed to GitHub."
-        else
-            echo "Error: Failed to push to GitHub."
-            exit 1
-        fi
-        exit 0
-    fi
-done < <(tail -n +2 "$CSV_FILE")
 
-echo "Error: No matching branch found in CSV."
-exit 1
+# Get current date and time
+current_date_time=$(date +"%Y-%m-%d %H:%M:%S")
+
+# Construct the commit message
+commit_message="BugID:$bug_id:$current_date_time:Branch $branch:DevName $developer:Priority $priority:$description"
+
+# Append additional developer description if provided
+if [ ! -z "$1" ]; then
+    commit_message+=":Dev Description $1"
+fi
+
+# Stage all changes
+git add .
+
+# Commit changes
+git commit -m "$commit_message"
+
+# Push to the remote repository
+git push origin $current_branch
+if [ $? -ne 0 ]; then
+    echo "Error: Failed to push to GitHub."
+    exit 1
+fi
