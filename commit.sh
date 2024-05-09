@@ -42,7 +42,7 @@ git add .
 
 # Commit changes
 git commit -m "$commit_message"
-
+echo "Committed changes with message: $commit_message"
 # Push to the remote repository
 git push origin $current_branch
 if [ $? -ne 0 ]; then
