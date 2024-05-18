@@ -46,6 +46,6 @@ echo "Committed changes with message: $commit_message"
 # Push to the remote repository
 git push origin $current_branch
 if [ $? -ne 0 ]; then
-    echo "Error: Failed to push to GitHub. "
+    echo "Error: Failed to push to GitHub."
     exit 1
 fi
